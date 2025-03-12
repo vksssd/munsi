@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/nested_scroll_view"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    tools:context=".ui.main.HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        tools:context=".ui.main.HomeFragment">
+
+        <ImageView
+            android:id="@+id/home_profile_icon"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:foreground="@drawable/ripple_effect"
+            android:clickable="true"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/light_gray"
+            android:src="@drawable/ic_avater"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/home_greeting_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:paddingStart="8dp"
+            android:text="@string/home_greeting"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/home_profile_icon"
+            app:layout_constraintStart_toEndOf="@id/home_profile_icon"
+            app:layout_constraintTop_toTopOf="@id/home_profile_icon" />
+
+        <ImageView
+            android:id="@+id/home_notification_icon"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:foreground="@drawable/ripple_effect"
+            android:clickable="true"
+            android:padding="10dp"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/light_gray"
+            android:contentDescription="@string/notification_icon_description"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_bell"
+            app:layout_constraintBottom_toBottomOf="@id/home_profile_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/home_profile_icon" />
+
+        <TextView
+            android:id="@+id/balance_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="4dp"
+            android:maxLines="2"
+            android:padding="10dp"
+            android:text="Total \nBalance"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/recent_payment_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_profile_icon" />
+
+        <TextView
+            android:id="@+id/balance_value_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="4dp"
+            android:maxLines="2"
+            android:padding="10dp"
+            android:text="$123877.98"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/balance_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/balance_textview" />
+
+        <include
+            android:id="@+id/recent_payment_card"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            layout="@layout/recent_payment"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/balance_textview"
+            app:layout_constraintBottom_toTopOf="@+id/announce_card"/>
+
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/announce_card"
+            layout="@layout/item_announce_card"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recent_payment_card"/>
+
+        <include
+            android:id="@+id/placeholder_line_included"
+            layout="@layout/placeholder_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/announce_card" />
+
+
+        <GridLayout
+            android:id="@+id/option_grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:columnCount="2"
+            android:rowCount="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/placeholder_line_included" >
+            <include
+                android:id="@+id/cash_in_card"
+                layout="@layout/item_grid_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:layout_columnWeight="1"/>
+            <include
+                android:id="@+id/cart_card"
+                layout="@layout/item_grid_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_columnWeight="1"/>
+        </GridLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/card_app_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/option_grid_view">
+
+            <LinearLayout
+                android:id="@+id/card_app_linear_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <include layout="@layout/item_card_app" />
+                <include layout="@layout/item_card_app" />
+                <include layout="@layout/item_card_app" />
+                <include layout="@layout/item_card_app" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+            <include
+                android:id="@+id/inventory_card"
+                layout="@layout/item_inventory_home_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="8dp"
+                android:layout_marginVertical="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_app_scroll_view" />
+
+
+        <include
+            android:id="@+id/view_all_card_view3"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            layout="@layout/card_viewall"
+            android:layout_marginTop="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inventory_card"
+            app:layout_constraintBottom_toTopOf="@+id/view_all_card_view2"/>
+
+
+        <include
+            android:id="@+id/view_all_card_view2"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            layout="@layout/card_with_title"
+            android:layout_marginTop="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_all_card_view3"
+            app:layout_constraintBottom_toTopOf="@+id/transcation_linear_layout"/>
+
+
+        <LinearLayout
+                android:id="@+id/transcation_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_all_card_view2">
+
+            <include layout="@layout/item_transcation" />
+            <include layout="@layout/item_transcation" />
+            <include layout="@layout/item_transcation" />
+                <include layout="@layout/item_transcation" />
+                <include layout="@layout/item_transcation" />
+                <include layout="@layout/item_transcation" />
+                <include layout="@layout/item_transcation" />
+
+
+        </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

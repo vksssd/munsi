@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cashinFragment"
+    android:background="@color/teal_700"
+    tools:context=".ui.billing.cashin.CashinFragment">
+
+    <include
+        android:id="@+id/cashin_titlebar"
+        layout="@layout/item_titlebar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10sp"
+        android:text="One-time order"
+        android:background="@drawable/circular_end"
+        android:backgroundTint="@color/light_black"
+        android:textColor="@color/light_gray_darker"
+        android:layout_margin="6sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cashin_titlebar"/>
+
+    <include
+        android:id="@+id/cashin_numpad"
+        layout="@layout/item_numpad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/reviewOrderTextview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/reviewOrderTextview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circular_end"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:text="Review Order  🚀"
+        android:foreground="@drawable/ripple_effect"
+        android:clickable="true"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:padding="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

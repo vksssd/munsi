@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/setting_nav"
+    app:startDestination="@id/profileFragment">
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.vksssd.alpha.ui.settings.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_self"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_receiveMoneyFragment"
+            app:destination="@id/receiveMoneyFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_billNotificationFragment"
+            app:destination="@id/billNotificationFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_languageFragment"
+            app:destination="@id/languageFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_passwordFragment"
+            app:destination="@id/passwordFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_paymentAppsFragment"
+            app:destination="@id/paymentAppsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_permissionFragment"
+            app:destination="@id/permissionFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_reminderFragment"
+            app:destination="@id/reminderFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_themeFragment"
+            app:destination="@id/themeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_home_nav"
+            app:destination="@id/home_nav" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.vksssd.alpha.ui.settings.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile">
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/receiveMoneyFragment"
+        android:name="com.vksssd.alpha.ui.settings.ReceiveMoneyFragment"
+        android:label="fragment_receive_money"
+        tools:layout="@layout/fragment_receive_money">
+        <action
+            android:id="@+id/action_receiveMoneyFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.vksssd.alpha.ui.settings.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about">
+        <action
+            android:id="@+id/action_aboutFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/billNotificationFragment"
+        android:name="com.vksssd.alpha.ui.settings.BillNotificationFragment"
+        android:label="fragment_bill_notification"
+        tools:layout="@layout/fragment_bill_notification">
+        <action
+            android:id="@+id/action_billNotificationFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/languageFragment"
+        android:name="com.vksssd.alpha.ui.settings.LanguageFragment"
+        android:label="fragment_language"
+        tools:layout="@layout/fragment_language">
+        <action
+            android:id="@+id/action_languageFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordFragment"
+        android:name="com.vksssd.alpha.ui.settings.PasswordFragment"
+        android:label="fragment_password"
+        tools:layout="@layout/fragment_password">
+        <action
+            android:id="@+id/action_passwordFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentAppsFragment"
+        android:name="com.vksssd.alpha.ui.settings.PaymentAppsFragment"
+        android:label="fragment_payment_apps"
+        tools:layout="@layout/fragment_payment_apps">
+        <action
+            android:id="@+id/action_paymentAppsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/permissionFragment"
+        android:name="com.vksssd.alpha.ui.settings.PermissionFragment"
+        android:label="fragment_permission"
+        tools:layout="@layout/fragment_permission">
+        <action
+            android:id="@+id/action_permissionFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reminderFragment"
+        android:name="com.vksssd.alpha.ui.settings.ReminderFragment"
+        android:label="fragment_reminder"
+        tools:layout="@layout/fragment_reminder">
+        <action
+            android:id="@+id/action_reminderFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/themeFragment"
+        android:name="com.vksssd.alpha.ui.settings.ThemeFragment"
+        android:label="fragment_theme"
+        tools:layout="@layout/fragment_theme">
+        <action
+            android:id="@+id/action_themeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_profileFragment_to_home_nav"
+        app:destination="@id/home_nav" />
+</navigation>

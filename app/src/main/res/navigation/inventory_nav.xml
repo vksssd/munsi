@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/inventory_nav"
+    app:startDestination="@id/inventoryFragment">
+
+    <fragment
+        android:id="@+id/inventoryFragment"
+        android:name="com.vksssd.alpha.ui.inventory.InventoryFragment"
+        android:label="fragment_inventory"
+        tools:layout="@layout/fragment_inventory" >
+        <action
+            android:id="@+id/action_inventoryFragment_to_home_nav"
+            app:destination="@id/home_nav" />
+        <action
+            android:id="@+id/action_inventoryFragment_to_newCategoryFragment"
+            app:destination="@id/newCategoryFragment" />
+        <action
+            android:id="@+id/action_inventoryFragment_to_inventoryStatsFragment"
+            app:destination="@id/inventoryStatsFragment" />
+        <action
+            android:id="@+id/action_inventoryFragment_to_productDetailsFragment2"
+            app:destination="@id/productDetailsFragment2" />
+        <action
+            android:id="@+id/action_inventoryFragment_to_addNewItemFragment"
+            app:destination="@id/addNewItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newCategoryFragment"
+        android:name="com.vksssd.alpha.ui.inventory.NewCategoryFragment"
+        android:label="fragment_new_category"
+        tools:layout="@layout/fragment_new_category" >
+        <action
+            android:id="@+id/action_newCategoryFragment_to_inventoryFragment"
+            app:destination="@id/inventoryFragment" />
+        <action
+            android:id="@+id/action_newCategoryFragment_to_addNewItemFragment"
+            app:destination="@id/addNewItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inventoryStatsFragment"
+        android:name="com.vksssd.alpha.ui.inventory.InventoryStatsFragment"
+        android:label="fragment_inventory_stats"
+        tools:layout="@layout/fragment_inventory_stats" >
+        <action
+            android:id="@+id/action_inventoryStatsFragment_to_inventoryFragment"
+            app:destination="@id/inventoryFragment" />
+    </fragment>
+
+
+    <action
+        android:id="@+id/action_inventory_nav_home_nav"
+        app:destination="@id/home_nav"/>
+    <fragment
+        android:id="@+id/productDetailsFragment2"
+        android:name="com.vksssd.alpha.ui.inventory.ProductDetailsFragment"
+        android:label="fragment_product_details"
+        tools:layout="@layout/fragment_product_details" >
+        <action
+            android:id="@+id/action_productDetailsFragment2_to_inventoryFragment"
+            app:destination="@id/inventoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewItemFragment"
+        android:name="com.vksssd.alpha.ui.inventory.AddNewItemFragment"
+        android:label="fragment_add_new_item"
+        tools:layout="@layout/fragment_add_new_item" >
+        <action
+            android:id="@+id/action_addNewItemFragment_to_inventoryFragment"
+            app:destination="@id/inventoryFragment" />
+        <action
+            android:id="@+id/action_addNewItemFragment_to_newCategoryFragment"
+            app:destination="@id/newCategoryFragment" />
+    </fragment>
+</navigation>

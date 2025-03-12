@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_corner"
+    android:backgroundTint="@android:color/holo_green_light"
+    android:layout_margin="2sp"
+    android:foreground="@drawable/ripple_effect"
+    android:clickable="true"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tile_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+$189"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:maxLines="2"
+        android:ellipsize="end" />
+
+    <ImageView
+        android:id="@+id/tile_icon"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_cash"
+        android:contentDescription="@string/tile_icon_description" />
+
+</LinearLayout>

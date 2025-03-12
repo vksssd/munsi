@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.settings.PaymentAppsFragment">
+
+
+    <include
+        android:id="@+id/payment_app_titlebar"
+        layout="@layout/item_titlebar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <ScrollView
+        android:id="@+id/language_card_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="3dp"
+        android:scrollbars="none"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/payment_app_titlebar">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/app1"
+                layout="@layout/item_text_checkbox" />
+            <include
+                android:id="@+id/app2"
+                layout="@layout/item_text_checkbox" />
+            <include
+                android:id="@+id/app3"
+                layout="@layout/item_text_checkbox" />
+            <include
+                android:id="@+id/app4"
+                layout="@layout/item_text_checkbox" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

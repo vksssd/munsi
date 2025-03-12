@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/anounce_nav"
+    app:startDestination="@id/anouncementFragment">
+    <fragment
+        android:id="@+id/anouncementFragment"
+        android:name="com.vksssd.alpha.ui.anounce.AnouncementFragment"
+        android:label="fragment_anouncement"
+        tools:layout="@layout/fragment_anouncement" >
+        <action
+            android:id="@+id/action_anouncementFragment_self"
+            app:destination="@id/anouncementFragment" />
+        <action
+            android:id="@+id/action_anouncementFragment_to_recordFragment"
+            app:destination="@id/recordFragment" />
+        <action
+            android:id="@+id/action_anouncementFragment_to_voiceFragment"
+            app:destination="@id/voiceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recordFragment"
+        android:name="com.vksssd.alpha.ui.anounce.RecordFragment"
+        android:label="fragment_record"
+        tools:layout="@layout/fragment_record" >
+        <action
+            android:id="@+id/action_recordFragment_to_anouncementFragment"
+            app:destination="@id/anouncementFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/voiceFragment"
+        android:name="com.vksssd.alpha.ui.anounce.VoiceFragment"
+        android:label="fragment_voice"
+        tools:layout="@layout/fragment_voice" >
+        <action
+            android:id="@+id/action_voiceFragment_to_anouncementFragment"
+            app:destination="@id/anouncementFragment" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_anouncementFragment_to_home_nav"
+        app:destination="@id/home_nav"/>
+</navigation>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_light"
+    android:scrollbars="none"
+    tools:context=".ui.anounce.AnouncementFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_padding">
+
+        <include
+            android:id="@+id/announcement_titlebar"
+            layout="@layout/item_titlebar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/payment_announcement_switch"
+            layout="@layout/item_text_radio"
+            android:layout_margin="@dimen/default_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/announcement_titlebar" />
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/custom_announcement_switch"
+            layout="@layout/item_text_radio"
+            android:layout_margin="@dimen/default_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/payment_announcement_switch" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/custom_announcemnt_list_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_marginHorizontal="@dimen/default_margin"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/light_gray_darker"
+            tools:itemCount="2"
+            android:layout_marginTop="-12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/custom_announcement_switch"
+            tools:listitem="@layout/item_text_checkbox" />
+
+        <TextView
+            android:id="@+id/recording_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Anoucement Recording"
+            android:textColor="@color/white"
+            android:padding="10sp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@android:color/holo_blue_bright"
+            android:layout_margin="@dimen/default_margin"
+            app:layout_constraintTop_toBottomOf="@id/custom_announcemnt_list_recycler_view"/>
+
+<!--        <androidx.constraintlayout.widget.Barrier-->
+<!--            android:id="@+id/barrier"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:barrierDirection="bottom"-->
+<!--            app:constraint_referenced_ids="recording_title" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recording_list_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-10dp"
+            android:layout_marginHorizontal="@dimen/default_margin"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@android:color/holo_blue_bright"
+            tools:itemCount="8"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recording_title"
+            tools:listitem="@layout/item_text_checkbox" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>

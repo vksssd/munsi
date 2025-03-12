@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nested_scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.settings.ProfileFragment">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/profile_titlebar"
+            layout="@layout/item_titlebar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profile_card"
+        android:layout_marginHorizontal="3dp"
+        android:layout_marginVertical="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        app:layout_constraintTop_toBottomOf="@id/profile_titlebar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/edit_profile_card_cl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_700"
+            android:padding="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/profile_pic_iv"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_avater"
+                android:visibility="invisible"
+                android:background="@drawable/rounded_corner"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+            <TextView
+                android:id="@+id/profile_initial_tv"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:textSize="24sp"
+                android:text="UN"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:visibility="visible"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_corner"
+                android:backgroundTint="@android:color/holo_red_light"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/username_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/profile_pic_iv"
+                android:layout_marginHorizontal="8sp"/>
+
+            <TextView
+                android:id="@+id/user_id_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sample@email.com"
+                android:textColor="@color/white"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/username_tv"
+                app:layout_constraintStart_toStartOf="@id/username_tv"
+                android:layout_marginEnd="8sp"/>
+
+            <ImageView
+                android:id="@+id/open_profile_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:src="@drawable/ic_arrow_right"
+                android:background="@color/white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8sp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/receive_money_card"
+        android:layout_marginHorizontal="3dp"
+        android:layout_marginVertical="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        app:layout_constraintTop_toBottomOf="@id/profile_card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/receive_money_cl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_700"
+            android:padding="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/item_icon_iv"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:src="@drawable/qr"
+                android:background="@drawable/rounded_corner"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/item_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Receive money"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/item_icon_iv"
+                android:layout_marginHorizontal="8sp"/>
+
+            <TextView
+                android:id="@+id/item_subtext_id_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sampleupi@upi"
+                android:textColor="@color/white"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/item_title_tv"
+                app:layout_constraintStart_toStartOf="@id/item_title_tv"
+                android:layout_marginEnd="8sp"/>
+
+            <ImageView
+                android:id="@+id/item_open_icon_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:src="@drawable/ic_arrow_right"
+                android:background="@color/white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8sp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <include
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/all_payment_receive_app_card"
+        android:layout_marginHorizontal="3dp"
+        android:layout_marginVertical="5dp"
+        layout="@layout/grid_all_apps"
+        app:layout_constraintTop_toBottomOf="@id/receive_money_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/settings_card_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="3dp"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/rounded_corner"
+        android:orientation="vertical"
+        android:backgroundTint="@color/teal_700"
+        app:layout_constraintTop_toBottomOf="@id/all_payment_receive_app_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/settings_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5sp"
+            android:text="Settings &amp; Preference"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <include
+            android:id="@+id/language_setting"
+            layout="@layout/item_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <include
+            android:id="@+id/permission_setting"
+            layout="@layout/item_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <include
+            android:id="@+id/theme_setting"
+            layout="@layout/item_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <include
+            android:id="@+id/bill_notification_setting"
+            layout="@layout/item_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <include
+            android:id="@+id/reminder_setting"
+            layout="@layout/item_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <include
+            layout="@layout/item_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/backup_cl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/teal_200"
+        android:layout_marginVertical="5dp"
+        android:elevation="8dp"
+        android:layout_marginHorizontal="3dp"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@id/settings_card_lv">
+
+        <ImageView
+            android:id="@+id/backup_icon_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_arrow_right"/>
+
+        <TextView
+            android:id="@+id/backup_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Backup"
+            android:textSize="20sp"
+            android:layout_marginHorizontal="8dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/backup_icon_iv"
+            app:layout_constraintTop_toTopOf="@id/backup_icon_iv"
+            app:layout_constraintBottom_toTopOf="@+id/backup_subtitle_tv"/>
+
+        <TextView
+            android:id="@+id/backup_subtitle_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Backup is off"
+            android:textSize="14sp"
+            android:layout_marginHorizontal="8dp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/backup_icon_iv"
+            app:layout_constraintTop_toBottomOf="@id/backup_title_tv"
+            app:layout_constraintBottom_toBottomOf="@id/backup_icon_iv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/privacy_card_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="3dp"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/rounded_corner"
+        android:orientation="vertical"
+        android:backgroundTint="@color/teal_700"
+        app:layout_constraintTop_toBottomOf="@id/backup_cl"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/privacy_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5sp"
+            android:text="Privacy"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <include
+            android:id="@+id/lock_screen_setting_tab"
+            layout="@layout/item_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <include
+            android:id="@+id/change_password_setting_tab"
+            layout="@layout/item_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <include
+            android:id="@+id/other_setting_tab"
+            layout="@layout/item_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/about_app_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="3dp"
+        app:cardCornerRadius="8dp"
+        android:elevation="8dp"
+        app:layout_constraintTop_toBottomOf="@id/privacy_card_lv">
+
+        <include
+            layout="@layout/item_setting" />
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/logout_cl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="3dp"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@id/about_app_card">
+
+        <ImageView
+            android:id="@+id/logout_icon_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_arrow_right"/>
+
+        <TextView
+            android:id="@+id/logout_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOGOUT"
+            android:textSize="20sp"
+            android:layout_marginHorizontal="8dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toEndOf="@id/logout_icon_iv"
+            app:layout_constraintTop_toTopOf="@id/logout_icon_iv"
+            app:layout_constraintBottom_toBottomOf="@id/logout_icon_iv"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/goal_grid_item_card"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:elevation="8dp"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_corner"
+    android:layout_margin="2sp"
+    android:foreground="@drawable/ripple_effect"
+    android:clickable="true"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/goal_tile_icon"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_cash"
+        android:padding="8dp"
+        android:background="@drawable/round_background"
+        android:backgroundTint="@color/purple_700"
+        android:contentDescription="@string/tile_icon_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/goal_tile_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dream Car"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:maxLines="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/goal_tile_icon"/>
+
+    <TextView
+        android:id="@+id/goal_tile_ammount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$1000 of $1200"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        android:maxLines="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/goal_tile_text"/>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/my_progress_indicator"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:progress="70"
+        app:trackStopIndicatorSize="5dp"
+        app:trackThickness="10dp"
+        app:indicatorTrackGapSize="2dp"
+        app:trackCornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/goal_tile_ammount"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

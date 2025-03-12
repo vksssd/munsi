@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none"
+    android:id="@+id/statsFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.StatsFragment">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <include
+        android:id="@+id/stats_title_bar"
+        layout="@layout/item_titlebar"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/stats_filter_option"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@android:color/holo_orange_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stats_title_bar">
+
+        <include
+            layout="@layout/item_text_bar_tile"
+            android:id="@+id/day_tile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1Day"
+            android:layout_margin="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/week_tile"/>
+
+
+        <include
+            layout="@layout/item_text_bar_tile"
+            android:id="@+id/week_tile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1Week"
+            android:layout_margin="2dp"
+            app:layout_constraintStart_toEndOf="@+id/day_tile"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/month_tile"/>
+
+        <include
+            layout="@layout/item_text_bar_tile"
+            android:id="@+id/month_tile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1Month"
+            android:layout_margin="2dp"
+            app:layout_constraintStart_toEndOf="@+id/week_tile"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/year_tile"/>
+
+        <include
+            layout="@layout/item_text_bar_tile"
+            android:id="@+id/year_tile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1Year"
+            android:layout_margin="2dp"
+            app:layout_constraintStart_toEndOf="@id/month_tile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sales_line_chart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:elevation="8dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintTop_toBottomOf="@+id/stats_filter_option"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/stats_sale_line_chart_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4sp"
+            android:text="Total Sales"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/stats_sale_line_chart_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Sales sub title"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@id/stats_sale_line_chart_title"
+            app:layout_constraintTop_toBottomOf="@+id/stats_sale_line_chart_title" />
+        <TextView
+            android:id="@+id/stats_sale_line_chart_text_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Report"
+            android:background="@drawable/round_corner_selected"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/stats_sale_line_chart_title" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/stats_sells_line_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/stats_sale_line_chart_subtitle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/stats_sale_line_chart_title"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/goal_curve_chart_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:elevation="8dp"
+        android:padding="8dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintTop_toBottomOf="@+id/sales_line_chart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+            <TextView
+                android:id="@+id/tv_saving_goal_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Saving Goal"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_report_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_corner_selected"
+                android:text="View Report"
+                android:textColor="@android:color/holo_blue_dark"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_date_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data from 1-12 Apr, 2024"
+                android:textSize="12sp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_saving_goal_title"/>
+
+<!--            add custom progress bar maybe a curve-->
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progress_savings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:indeterminate="false"
+                android:progress="70"
+                app:indicatorColor="@android:color/holo_green_dark"
+                app:indicatorSize="190dp"
+                app:indicatorTrackGapSize="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_date_range"
+                app:trackColor="@color/teal_200"
+                app:trackCornerRadius="5dp"
+                app:trackStopIndicatorSize="5dp"
+                app:trackThickness="17dp" />
+
+
+            <TextView
+                android:id="@+id/tv_savings_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$1,052.98"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/progress_savings"
+                app:layout_constraintEnd_toEndOf="@id/progress_savings"
+                app:layout_constraintTop_toTopOf="@id/progress_savings"
+                app:layout_constraintBottom_toBottomOf="@id/progress_savings"/>
+
+            <TextView
+                android:id="@+id/tv_savings_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="of $1,200"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="@id/tv_savings_amount"
+                app:layout_constraintEnd_toEndOf="@id/tv_savings_amount"
+                app:layout_constraintTop_toBottomOf="@id/tv_savings_amount"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/all_income_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:elevation="8dp"
+        android:padding="8dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/goal_curve_chart_card">
+
+
+        <TextView
+            android:id="@+id/tv_total_income_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Income Goal"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_total_income_report_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner_selected"
+            android:text="View Report"
+            android:textColor="@android:color/holo_blue_dark"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_total_income_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data from 1-12 Apr, 2024"
+            android:textSize="12sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_total_income_title"/>
+
+        <com.github.mikephil.charting.charts.BubbleChart
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_total_income_subtitle"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/all_revenue_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:elevation="8dp"
+        android:padding="8dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/all_income_card">
+
+
+        <TextView
+            android:id="@+id/tv_revenue_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Revenue Goal"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_revenue_report_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner_selected"
+            android:text="View Report"
+            android:textColor="@android:color/holo_blue_dark"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_revenue_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data from 1-12 Apr, 2024"
+            android:textSize="12sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_revenue_title"/>
+
+
+        <TextView
+            android:id="@+id/tv_revenue_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="$1254"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_revenue_subtitle"/>
+
+        <TextView
+            android:id="@+id/tv_revenue_growth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+2% vs last day"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_revenue_value"/>
+
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_revenue_growth"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/all_salesvstime_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:elevation="8dp"
+        android:padding="8dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/all_revenue_card">
+
+
+        <TextView
+            android:id="@+id/tv_salesvstime_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sales VS Time"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_salesvstime_report_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner_selected"
+            android:text="View Report"
+            android:textColor="@android:color/holo_blue_dark"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_salesvstime_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data from 1-12 Apr, 2024"
+            android:textSize="12sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_salesvstime_title"/>
+
+
+        <TextView
+            android:id="@+id/tv_salesvstime_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="$1254"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_salesvstime_subtitle"/>
+
+        <TextView
+            android:id="@+id/tv_salesvstime_growth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+2% vs last day"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_salesvstime_value"/>
+
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_salesvstime_growth"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/all_transaction_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:elevation="8dp"
+        android:padding="8dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/all_salesvstime_card">
+
+
+        <TextView
+            android:id="@+id/tv_transaction_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Transaction"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_transaction_report_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner_selected"
+            android:text="View Report"
+            android:textColor="@android:color/holo_blue_dark"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_transaction_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data from 1-12 Apr, 2024"
+            android:textSize="12sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_transaction_title"/>
+
+
+        <TextView
+            android:id="@+id/tv_transaction_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="$1254"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_transaction_subtitle"/>
+
+        <TextView
+            android:id="@+id/tv_transaction_growth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+2% vs last day"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_transaction_value"/>
+
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_transaction_growth"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/personal_expense_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:elevation="8dp"
+        android:padding="8dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/all_transaction_card">
+
+
+        <TextView
+            android:id="@+id/tv_total_expense_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Personal Expense"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_total_expense_report_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner_selected"
+            android:text="View Report"
+            android:textColor="@android:color/holo_blue_dark"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_total_expense_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data from 1-12 Apr, 2024"
+            android:textSize="12sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_total_expense_title"/>
+
+        <com.github.mikephil.charting.charts.BubbleChart
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_total_expense_subtitle"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <GridLayout
+        android:id="@+id/gv_goals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:rowCount="2"
+        android:elevation="8dp"
+        android:layout_margin="2dp"
+        android:columnCount="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/personal_expense_card">
+
+        <include
+            layout="@layout/item_grid_goal_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"/>
+        <include
+            layout="@layout/item_grid_goal_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"/>
+        <include
+            layout="@layout/item_grid_goal_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"/>
+        <include
+            layout="@layout/item_grid_goal_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"/>
+
+    </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

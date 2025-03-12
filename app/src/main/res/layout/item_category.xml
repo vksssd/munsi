@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_category"
+    android:layout_width="90dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    android:layout_margin="4dp"
+    android:elevation="8dp"
+    android:background="@drawable/rounded_corner"
+    android:backgroundTint="@color/white"
+    android:foreground="@drawable/ripple_effect"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:padding="4dp">
+        <ImageView
+            android:id="@+id/category_item_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:contentDescription="@string/app_icon_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_category2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/category_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Catgory"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/category_item_image" />
+</androidx.constraintlayout.widget.ConstraintLayout>

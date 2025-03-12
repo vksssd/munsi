@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/text_bar_tile"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:background="@drawable/round_corner_selected"
+    android:layout_margin="4sp"
+    android:foreground="@drawable/ripple_effect"
+    android:clickable="true"
+    android:padding="8dp">
+    <TextView
+        android:id="@+id/tile_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1Day"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:maxLines="2"
+        android:layout_marginHorizontal="8dp"
+        android:ellipsize="end" />
+</LinearLayout>
