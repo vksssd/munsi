@@ -4,6 +4,7 @@ import com.vksssd.alpha.data.dao.BillDao
 import com.vksssd.alpha.data.entity.Bill
 import com.vksssd.alpha.data.entity.BillStatus
 import com.vksssd.alpha.data.entity.BillType
+import com.vksssd.alpha.data.entity.Transaction
 import kotlinx.coroutines.flow.Flow
 import java.util.Date
 import javax.inject.Inject
@@ -11,7 +12,8 @@ import javax.inject.Singleton
 
 @Singleton
 class CashBillRepo @Inject constructor(
-    private val billDao: BillDao
+    private val billDao: BillDao,
+    private val transactionRepository: TransactionRepository
     ):BaseBillRepo {
     override fun getAllBills(): Flow<List<Bill>> = billDao.getBillsByType(BillType.DIRECT_CASH.name)
 
@@ -51,5 +53,8 @@ class CashBillRepo @Inject constructor(
         return insertBill(bill)
     }
 
+    suspend fun addTransaction(transaction: Transaction){
+        transactionRepository.insertTransaction(transaction)
+     }
 
 }

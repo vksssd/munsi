@@ -36,6 +36,9 @@ object DatabaseModule {
     fun providesProductDao(database: AppDatabase) = database.productDao()
 
     @Provides
+    fun providesCategoryDao(database: AppDatabase) = database.categoryDao()
+
+    @Provides
     fun providesUserProfileDao(database: AppDatabase) = database.userProfileDao()
 
     @Provides

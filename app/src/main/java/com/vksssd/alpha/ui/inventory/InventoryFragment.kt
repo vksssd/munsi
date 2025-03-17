@@ -1,60 +1,149 @@
 package com.vksssd.alpha.ui.inventory
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.vksssd.alpha.R
+import com.vksssd.alpha.databinding.FragmentInventoryBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [InventoryFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class InventoryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentInventoryBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var navController: NavController
+    private lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var productAdapter: ProductAdapter
+
+    private val categoryViewModel: CategoryViewModel by viewModels()
+    private val productViewModel: ProductViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inventory, container, false)
+    ): View {
+        _binding = FragmentInventoryBinding.inflate(inflater, container, false)
+        navController = findNavController()
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment InventoryFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            InventoryFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.inventoryTitlebar.toolbarTitle.text = "Inventory"
+        binding.inventoryTitlebar.backButton.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+        // Hide search and add buttons as needed...
+        binding.inventorySearchbar.searchBar.visibility = View.GONE
+        binding.addProduct.visibility = View.GONE
+        binding.addCategory.visibility = View.GONE
+        binding.closeAddProductFab.setImageResource(R.drawable.ic_add)
+
+        setupClickListeners()
+        setupCategoryRecyclerView()
+        setupProductRecyclerView()
+        setupViewModelObservers()
+
+        // Set the category item click callback
+        categoryAdapter.onItemClick = { category ->
+            // Call getProductByCategoryId in your ProductViewModel with the selected category's id.
+            productViewModel.getProductByCategoryId(category.id)
+        }
+    }
+
+    private fun setupCategoryRecyclerView() {
+        categoryAdapter = CategoryAdapter()
+        binding.categoryListRv.apply {
+            adapter = categoryAdapter
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun setupProductRecyclerView() {
+        productAdapter = ProductAdapter()
+        binding.productListRv.apply {
+            adapter = productAdapter
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun setupViewModelObservers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Observe categories
+                launch {
+                    categoryViewModel.categories.collectLatest { categories ->
+                        Log.d("InventoryFragment", "categories collected, size: ${categories.size}")
+                        if (categories.isNotEmpty()) {
+                            categoryAdapter.submitList(categories)
+                            binding.categoryListRv.visibility = View.VISIBLE
+                        } else {
+                            binding.categoryListRv.visibility = View.GONE
+                        }
+                    }
+                }
+                // Observe products returned by getProductByCategoryId
+                launch {
+                    productViewModel.products.collectLatest { products ->
+                        Log.d("InventoryFragment", "products collected, size: ${products.size}")
+                        if (products.isNotEmpty()) {
+                            productAdapter.submitList(products)
+                            binding.productListRv.visibility = View.VISIBLE
+                        } else {
+                            binding.productListRv.visibility = View.GONE
+                        }
+                    }
                 }
             }
+        }
+    }
+
+    private fun setupClickListeners() {
+        binding.apply {
+            inventoryTitlebar.searchButton.setOnClickListener {
+                inventorySearchbar.searchBar.visibility =
+                    if (inventorySearchbar.searchBar.isGone) View.VISIBLE else View.GONE
+            }
+            addCategory.setOnClickListener {
+                navController.navigate(R.id.action_inventoryFragment_to_newCategoryFragment)
+            }
+            addProduct.setOnClickListener {
+                navController.navigate(R.id.action_inventoryFragment_to_addNewItemFragment)
+            }
+            closeAddProductFab.setOnClickListener {
+                if (addProduct.isGone && addCategory.isGone) {
+                    closeAddProductFab.setImageResource(R.drawable.ic_close)
+                    addCategory.visibility = View.VISIBLE
+                    addProduct.visibility = View.VISIBLE
+                } else {
+                    closeAddProductFab.setImageResource(R.drawable.ic_add)
+                    addCategory.visibility = View.GONE
+                    addProduct.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

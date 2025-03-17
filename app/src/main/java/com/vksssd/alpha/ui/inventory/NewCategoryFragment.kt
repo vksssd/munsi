@@ -5,56 +5,143 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.vksssd.alpha.R
+import com.vksssd.alpha.data.entity.Category
+import com.vksssd.alpha.databinding.FragmentNewCategoryBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [NewCategoryFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class NewCategoryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var _binding: FragmentNewCategoryBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var navController: NavController
+//    private val viewModel: NewCategoryViewModel by viewModels()
+
+    private val viewModel : CategoryViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_category, container, false)
+        _binding = FragmentNewCategoryBinding.inflate(inflater, container, false)
+        navController = findNavController()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment NewCategoryFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            NewCategoryFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.newCategoryTitlebar.toolbarTitle.text = "New Category"
+        binding.newCategoryTitlebar.backButton.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+        binding.newCategoryTitlebar.searchButton.visibility = View.INVISIBLE
+
+        binding.radioAvailable.isChecked = true
+        binding.radioNotAvailable.isChecked = false
+        binding.toastCard.toastCardBar.visibility = View.GONE
+
+        binding.saveBtnTv.itemCard.visibility = View.VISIBLE
+        binding.saveBtnTv.tileText.text = "Save"
+        binding.saveBtnTv.tileIcon.setImageResource(R.drawable.ic_wallet)
+
+        if(binding.radioAvailable.isChecked){
+            binding.radioAvailable.isChecked = true
+            binding.radioNotAvailable.isChecked = false
+        } else{
+            binding.radioAvailable.isChecked = false
+            binding.radioNotAvailable.isChecked = true
+        }
+
+        binding.resetBtnTv.itemCard.visibility = View.VISIBLE
+        binding.resetBtnTv.tileText.text = "Reset"
+        binding.resetBtnTv.tileIcon.setImageResource(R.drawable.ic_close)
+
+        setupClickListeners()
+//        observeViewModel()
+
+    }
+
+    private fun setupClickListeners() {
+        binding.apply {
+
+//            make it click or select image from gallery or camera
+            categoryAddImageIv.setOnClickListener {
+                categoryAddImageIv.setImageResource(R.drawable.ic_category2)
+            }
+
+
+            saveBtnTv.itemCard.setOnClickListener {
+                val categoryName = binding.categoryName.text.toString().trim()
+
+                if (categoryName.isEmpty()) {
+                    //update ui
+                    binding.toastCard.toastCardBar.visibility = View.VISIBLE
+                    binding.toastCard.toastCardText.text = "Category name cannot be empty"
+                    val color = ContextCompat.getColor(requireContext(), R.color.card_background)
+                    binding.toastCard.toastCardBar.setBackgroundColor(color)
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        delay(1000) // Wait for 1 seconds
+                        binding.toastCard.toastCardBar.visibility = View.GONE
+                    }
+                    return@setOnClickListener
+                }
+
+                val newCategory = Category(
+                    categoryName = categoryName,
+                    isActive = binding.radioAvailable.isChecked,
+                    inStock = binding.radioAvailable.isChecked,
+                    imageUrl = binding.categoryAddImageIv.toString(),
+                )
+
+                viewModel.addNewCategory(newCategory)
+
+                //update ui
+                binding.toastCard.toastCardBar.visibility = View.VISIBLE
+                binding.toastCard.toastCardText.text = "Category added successfully"
+
+                binding.categoryName.setText("")
+                binding.categoryAddImageIv.setImageResource(R.drawable.ic_camera)
+                binding.radioAvailable.isChecked = true
+                binding.radioNotAvailable.isChecked = false
+
+                val color = ContextCompat.getColor(requireContext(), R.color.glass)
+                binding.toastCard.toastCardBar.setBackgroundColor(color)
+
+                // Use coroutine to delay the hide toastCard
+                viewLifecycleOwner.lifecycleScope.launch {
+                    delay(1000) // Wait for 1 seconds
+                    binding.toastCard.toastCardBar.visibility = View.GONE
                 }
             }
+
+            resetBtnTv.itemCard.setOnClickListener{
+                binding.categoryName.setText("")
+                binding.radioAvailable.isChecked = true
+                binding.radioNotAvailable.isChecked = false
+            }
+
+        }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+
 }

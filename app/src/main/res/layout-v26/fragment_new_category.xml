@@ -16,6 +16,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <include
+        android:id="@+id/toast_card"
+        layout="@layout/item_toast"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -27,15 +41,17 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
             <ImageView
                 android:id="@+id/category_add_image_iv"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                android:layout_marginTop="20dp"
-                android:padding="5dp"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_marginTop="16dp"
+                android:padding="15dp"
                 android:scaleType="centerCrop"
+                android:background="@drawable/rounded_corner"
                 android:src="@drawable/ic_camera"
                 android:tooltipText="@string/add_photo"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -46,8 +62,7 @@
                 android:id="@+id/category_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="38dp"
+                android:layout_marginTop="32dp"
                 android:background="@drawable/rounded_corner"
                 android:hint="@string/category_name_hint"
                 android:inputType="text"
@@ -61,7 +76,7 @@
                 android:id="@+id/category_name_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/darker_gray"
+                android:background="@color/light_black"
                 android:padding="8dp"
                 android:text="@string/category_name_label"
                 android:textColor="@color/white"
@@ -69,13 +84,13 @@
                 app:layout_constraintBottom_toTopOf="@id/category_name"
                 app:layout_constraintStart_toStartOf="@id/category_name" />
 
+
             <RadioGroup
                 android:id="@+id/stock_radio_group"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="32dp"
-                android:orientation="vertical"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/category_name">
@@ -84,17 +99,56 @@
                     android:id="@+id/radio_available"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/available_toggle" />
 
                 <RadioButton
                     android:id="@+id/radio_not_available"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/not_available_toggle" />
 
             </RadioGroup>
 
+            <GridLayout
+                android:id="@+id/btns_card_grid"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="32dp"
+                android:columnCount="2"
+                android:rowCount="1"
+                app:flow_horizontalGap="16dp"
+                app:layout_constraintTop_toBottomOf="@id/stock_radio_group">
+
+                <include
+                    android:id="@+id/reset_btn_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_rowWeight="1"
+                    android:clickable="true"
+                    android:layout_columnWeight="1"
+                    layout="@layout/item_card_app"
+                    android:focusable="true"/>
+
+                <include
+                    android:id="@+id/save_btn_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_rowWeight="1"
+                    android:clickable="true"
+                    android:layout_columnWeight="1"
+                    layout="@layout/item_card_app"
+                    android:focusable="true" />
+
+
+            </GridLayout>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

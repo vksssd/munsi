@@ -4,21 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/catalog_fragment"
     tools:context=".ui.billing.cart.CatalogFragment">
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/nested_scroll_view"
-        android:fillViewport="true"
-        android:scrollbars="none"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <include
                 android:id="@+id/catalog_titlebar"
@@ -41,73 +28,39 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/catalog_titlebar" />
 
-
-            <HorizontalScrollView
-                android:id="@+id/catalog_category_hsv"
+            <LinearLayout
+                android:id="@+id/item_list_ll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:scrollbars="none"
-                android:visibility="visible"
+                android:layout_height="0dp"
+                android:layout_margin="5dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/catalog_searchbar">
 
-                <LinearLayout
-                    android:id="@+id/catalog_category_linear_layout"
-                    android:layout_width="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/category_list_rv"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:background="@drawable/rounded_corner"
+                    android:backgroundTint="@color/teal_700"
+                    android:clipToPadding="false"
+                    android:elevation="14dp"
+                    android:scrollbars="none"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_category" />
 
-                    <include layout="@layout/item_category" />
-                    <include layout="@layout/item_category" />
-                    <include layout="@layout/item_category" />
-                    <include layout="@layout/item_category" />
-                    <include layout="@layout/item_category" />
-
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <LinearLayout
-                android:id="@+id/catalog_item_linear_layout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="4dp"
-                android:visibility="visible"
-                android:layout_marginBottom="80dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/catalog_category_hsv">
-                <include layout="@layout/item_catalog" />
-                <include layout="@layout/item_catalog" />
-                <include layout="@layout/item_catalog" />
-                <include layout="@layout/item_catalog" />
-                <include layout="@layout/item_catalog" />
-                <include layout="@layout/item_catalog" />
-                <include layout="@layout/item_catalog" />
-
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/product_list_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:scrollbars="none"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_catalog" />
 
             </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/catalog_fragment_rv"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="gone"
-                android:padding="6dp"
-                tools:itemCount="10"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/catalog_category_hsv"
-                tools:listitem="@layout/item_catalog" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </androidx.core.widget.NestedScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/proceed_order_lv"
@@ -116,6 +69,10 @@
         android:orientation="horizontal"
         android:padding="16sp"
         android:elevation="14dp"
+        android:visibility="visible"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/ripple_effect"
         android:layout_margin="10dp"
         android:background="@drawable/circular_end"
         android:backgroundTint="@android:color/holo_blue_light"

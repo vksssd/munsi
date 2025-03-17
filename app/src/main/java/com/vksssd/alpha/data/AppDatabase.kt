@@ -12,10 +12,11 @@ import com.vksssd.alpha.data.entity.*
         Transaction::class,
         Bill::class,
         Product::class,
+        Category::class,
         UserProfile::class,
         Notification::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -23,6 +24,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun transactionDao(): TransactionDao
     abstract fun billDao(): BillDao
     abstract fun productDao(): ProductDao
+    abstract fun categoryDao(): CategoryDao
     abstract fun userProfileDao(): UserProfileDao
     abstract fun notificationDao(): NotificationDao
 }

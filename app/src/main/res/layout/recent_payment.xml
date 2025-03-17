@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:backgroundTint="@android:color/holo_orange_light"
     app:cardCornerRadius="8dp"
     android:elevation="8dp"
@@ -41,54 +42,18 @@
                 android:textSize="14sp" />
         </RelativeLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/app_icons_lv"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recent_payment_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="6dp"
-            android:paddingVertical="4dp">
+            android:paddingVertical="4dp"
+            android:clipToPadding="false"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="4"
+            tools:listitem="@layout/item_tile_payment" />
 
-            <include
-                android:id="@+id/item_last_payment1"
-                layout="@layout/item_tile_payment"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="2dp"
-                app:layout_constraintHorizontal_chainStyle="spread"
-                app:layout_constraintEnd_toStartOf="@+id/item_last_payment2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <include
-                android:id="@+id/item_last_payment2"
-                layout="@layout/item_tile_payment"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="2dp"
-                app:layout_constraintEnd_toStartOf="@+id/item_last_payment3"
-                app:layout_constraintStart_toEndOf="@+id/item_last_payment1"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <include
-                android:id="@+id/item_last_payment3"
-                layout="@layout/item_tile_payment"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="2dp"
-                app:layout_constraintEnd_toStartOf="@+id/item_last_payment4"
-                app:layout_constraintStart_toEndOf="@+id/item_last_payment2"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <include
-                android:id="@+id/item_last_payment4"
-                layout="@layout/item_tile_payment"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="2dp"
-                app:layout_constraintStart_toEndOf="@+id/item_last_payment3"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

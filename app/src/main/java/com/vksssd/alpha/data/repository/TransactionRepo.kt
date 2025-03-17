@@ -1,9 +1,12 @@
 package com.vksssd.alpha.data.repository
 
+import android.util.Log
 import com.vksssd.alpha.data.dao.TransactionDao
 import com.vksssd.alpha.data.entity.Transaction as TransactionEntity
 import com.vksssd.alpha.data.entity.TransactionType
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.flow
 import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -12,7 +15,36 @@ import javax.inject.Singleton
 class TransactionRepository @Inject constructor(
     private val transactionDao: TransactionDao
 ){
-    fun getAllTransactions(): Flow<List<TransactionEntity>> = transactionDao.getAllTransactions()
+//    fun getAllTransactions(): Flow<List<TransactionEntity>> = transactionDao.getAllTransactions()
+
+    fun getAllTransactions(): Flow<List<TransactionEntity>> = flow {
+        Log.d("TransactionRepo", "getAllTransactions() called")
+
+        transactionDao.getAllTransactions().collect { transactions ->
+            if(transactions.isEmpty()){
+                Log.d("TransactionRepo", "Empty Transactions")
+            }
+            if (transactions.isNotEmpty()) {
+                Log.d("TransactionRepo", "Transactions: $transactions")
+                emit(transactions)
+            }
+        }
+    }.conflate()
+
+    fun getLastNTransactions(count: Int):  Flow<List<TransactionEntity>> = flow {
+        Log.d("TransactionRepo", "getLastNTransactions() called")
+
+        transactionDao.getLastNTransactions(count).collect { transactions ->
+            if(transactions.isEmpty()){
+                Log.d("TransactionRepo", "Empty Transactions")
+            }
+            if (transactions.isNotEmpty()) {
+                Log.d("TransactionRepo", "Transactions: $transactions")
+                emit(transactions)
+            }
+        }
+    }.conflate()
+//        transactionDao.getLastNTransactions(4)
 
     fun getTransactionsByDateRange(startDate: Date, endDate: Date): Flow<List<TransactionEntity>> =
         transactionDao.getTransactionsByDateRange(startDate, endDate)

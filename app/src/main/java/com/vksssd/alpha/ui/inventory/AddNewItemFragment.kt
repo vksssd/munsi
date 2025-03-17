@@ -1,60 +1,138 @@
 package com.vksssd.alpha.ui.inventory
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.vksssd.alpha.R
+import com.vksssd.alpha.data.entity.Product
+import com.vksssd.alpha.databinding.FragmentAddNewItemBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AddNewItemFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class AddNewItemFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var _binding: FragmentAddNewItemBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var navController: NavController
+
+    private val viewModel : ProductViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_new_item, container, false)
+        _binding = FragmentAddNewItemBinding.inflate(inflater, container, false)
+        navController = findNavController()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddNewItemFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddNewItemFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.addNewItemTitlebar.toolbarTitle.text = "Add Product"
+        binding.addNewItemTitlebar.backButton.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+        binding.addNewItemTitlebar.searchButton.visibility = View.INVISIBLE
+        binding.toastCard.toastCardBar.visibility = View.GONE
+
+
+        binding.saveBtnTv.itemCard.visibility = View.VISIBLE
+        binding.saveBtnTv.tileText.text = "Save"
+        binding.saveBtnTv.tileIcon.setImageResource(R.drawable.ic_wallet)
+
+
+        binding.resetBtnTv.itemCard.visibility = View.VISIBLE
+        binding.resetBtnTv.tileText.text = "Reset"
+        binding.resetBtnTv.tileIcon.setImageResource(R.drawable.ic_close)
+
+        setupClickListeners()
+//        observeViewModel()
+
     }
+
+    private fun setupClickListeners() {
+        binding.apply {
+
+//            make it click or select image from gallery or camera
+            productPictureValueIv.setOnClickListener {
+                productPictureValueIv.setImageResource(R.drawable.ic_food)
+            }
+
+
+            saveBtnTv.itemCard.setOnClickListener {
+                val name = binding.productNameValueTv.text.toString().trim()
+                val price = binding.productPriceValueTv.text.toString().trim()
+                val description = binding.productDescriptionValueTv.text.toString().trim()
+
+                if (name.isEmpty() || price.isEmpty()) {
+                    //update ui
+                    binding.toastCard.toastCardBar.visibility = View.VISIBLE
+                    binding.toastCard.toastCardText.text = "Product name or price cannot be empty"
+                    val color = ContextCompat.getColor(requireContext(), R.color.card_background)
+                    binding.toastCard.toastCardBar.setBackgroundColor(color)
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        delay(1000) // Wait for 1 seconds
+                        binding.toastCard.toastCardBar.visibility = View.GONE
+                    }
+                    return@setOnClickListener
+                }
+
+                viewModel.addNewProduct( product = Product(
+                    productName = name,
+                    price = price.toDouble(),
+                    description = description,
+                    categoryId = 1
+                ))
+
+                binding.toastCard.toastCardBar.visibility = View.VISIBLE
+                binding.toastCard.toastCardText.text = "Product added successfully"
+
+                binding.productNameValueTv.setText("")
+                binding.productPriceValueTv.setText("")
+                binding.productDescriptionTv.setText("")
+                binding.productPictureValueIv.setImageResource(R.drawable.ic_camera)
+
+
+                val color = ContextCompat.getColor(requireContext(), R.color.glass)
+                binding.toastCard.toastCardBar.setBackgroundColor(color)
+
+                // Use coroutine to delay the hide toastCard
+                viewLifecycleOwner.lifecycleScope.launch {
+                    delay(1000) // Wait for 1 seconds
+                    binding.toastCard.toastCardBar.visibility = View.GONE
+                }
+
+            }
+
+            resetBtnTv.itemCard.setOnClickListener{
+                binding.productNameValueTv.setText("")
+                binding.productPriceValueTv.setText("")
+                binding.productDescriptionValueTv.setText("")
+            }
+
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+
 }

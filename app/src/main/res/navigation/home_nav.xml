@@ -6,7 +6,7 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.vksssd.alpha.ui.main.HomeFragment"
+        android:name="com.vksssd.alpha.ui.main.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.vksssd.alpha.ui.main.HistoryFragment"
+        android:name="com.vksssd.alpha.ui.main.history.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history">
         <action
@@ -76,7 +76,7 @@
     </fragment>
     <fragment
         android:id="@+id/statsFragment"
-        android:name="com.vksssd.alpha.ui.main.StatsFragment"
+        android:name="com.vksssd.alpha.ui.main.stats.StatsFragment"
         android:label="fragment_stats"
         tools:layout="@layout/fragment_stats">
         <action

@@ -1,23 +1,34 @@
-package com.vksssd.alpha.ui.main
+package com.vksssd.alpha.ui.main.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.vksssd.alpha.R
 import com.vksssd.alpha.databinding.FragmentHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private var scrollViewState: Int ?= null
     private lateinit var navController: NavController
+
+    private val viewModel: HomeViewModel by viewModels()
+    private lateinit var adapter: HomeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +37,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         navController = findNavController()
         return binding.root
@@ -40,6 +51,7 @@ class HomeFragment : Fragment() {
         binding.cartCard.tileIcon.setImageResource(R.drawable.ic_cart)
 
         setupClickListeners()
+        setupRecentPaymentRecyclerView()
         observeViewModel()
     }
 
@@ -79,12 +91,34 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupRecyclerView() {
-        // Set up RecyclerView
+
+    private fun setupRecentPaymentRecyclerView() {
+        adapter = HomeAdapter()
+        binding.recentPaymentCard.recentPaymentRv.apply {
+            adapter = this@HomeFragment.adapter
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        }
     }
 
+
     private fun observeViewModel() {
-        // Observe LiveData from ViewModel
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Collect the list of transactions
+                launch {
+                    viewModel.transactions.collectLatest { transactions ->
+                        Log.d("HomeFragment", "Transactions collected, size: ${transactions.size}")
+                        if (transactions.isNotEmpty()){
+                            adapter.submitList(transactions)
+                            binding.recentPaymentCard.recentPaymentRv.visibility = View.VISIBLE
+                        }else{
+                            binding.recentPaymentCard.recentPaymentRv.visibility = View.GONE
+                        }
+                    }
+                }
+            }
+        }
     }
 
 //    private fun updateHistoryList(historyItems: List<HistoryItem>) {

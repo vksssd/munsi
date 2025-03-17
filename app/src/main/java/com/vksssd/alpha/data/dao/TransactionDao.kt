@@ -14,6 +14,9 @@ interface TransactionDao {
     @Query("SELECT * FROM transactions ORDER BY timestamp DESC")
     fun getAllTransactions(): Flow<List<Transaction>>
 
+    @Query("SELECT * FROM transactions ORDER BY timestamp DESC LIMIT :count")
+    fun getLastNTransactions(count: Int): Flow<List<Transaction>>
+
     @Query("SELECT * FROM transactions WHERE timestamp BETWEEN :startDate AND :endDate ORDER BY timestamp DESC")
     fun getTransactionsByDateRange(startDate: Date, endDate: Date): Flow<List<Transaction>>
 
