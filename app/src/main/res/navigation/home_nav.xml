@@ -62,7 +62,12 @@
             app:destination="@id/homeFragment" />
         <action
             android:id="@+id/action_catalogFragment_to_billCreatedFragment"
-            app:destination="@id/billCreatedFragment" />
+            app:destination="@id/billCreatedFragment" >
+<!--            <argument-->
+<!--                android:name="selectedProducts"-->
+<!--                app:argType="com.vksssd.ui.billing.cart.SelectedProduct[]"-->
+<!--                app:nullable="false"/>-->
+        </action>
         <action
             android:id="@+id/action_catalog_to_order_confirmation"
             app:destination="@id/orderConfirmationFragment" />

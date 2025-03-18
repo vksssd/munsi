@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,10 +13,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.vksssd.alpha.R
+import com.vksssd.alpha.data.entity.Category
 import com.vksssd.alpha.data.entity.Product
 import com.vksssd.alpha.databinding.FragmentAddNewItemBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -26,6 +30,13 @@ class AddNewItemFragment : Fragment() {
     private lateinit var navController: NavController
 
     private val viewModel : ProductViewModel by viewModels()
+    private val categoryViewModel : CategoryViewModel by viewModels()
+
+    private lateinit var selectedCategory: String
+    private var selectedCategoryId: Long = -1
+    private val categories : MutableList<Category> = mutableListOf()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,13 +72,53 @@ class AddNewItemFragment : Fragment() {
         binding.resetBtnTv.tileText.text = "Reset"
         binding.resetBtnTv.tileIcon.setImageResource(R.drawable.ic_close)
 
-        setupClickListeners()
-//        observeViewModel()
 
+        setupClickListeners()
+        observeViewModel()
+
+    }
+
+    private fun observeViewModel() {
+        lifecycleScope.launch {
+            categoryViewModel.categories.collectLatest {
+                categoriesList->
+                categories.clear()
+                categories.add(Category(0, "Select Category"))
+                categories.addAll(categoriesList)
+                binding.productCategoryValueSpinner.setSelection(0)
+                updateCategorySpinner()
+            }
+        }
+    }
+
+    private fun updateCategorySpinner() {
+        val categoryNames = categories.map { it.categoryName }
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categoryNames)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        binding.productCategoryValueSpinner.adapter = adapter
     }
 
     private fun setupClickListeners() {
         binding.apply {
+
+            productCategoryValueSpinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener{
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    selectedCategory = categories[position].categoryName
+                    selectedCategoryId = categories[position].id
+                    binding.productCategoryValueSpinner.setSelection(position)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    binding.productCategoryValueSpinner.setSelection(0)
+                }
+            }
 
 //            make it click or select image from gallery or camera
             productPictureValueIv.setOnClickListener {
@@ -97,7 +148,7 @@ class AddNewItemFragment : Fragment() {
                     productName = name,
                     price = price.toDouble(),
                     description = description,
-                    categoryId = 1
+                    categoryId = selectedCategoryId
                 ))
 
                 binding.toastCard.toastCardBar.visibility = View.VISIBLE

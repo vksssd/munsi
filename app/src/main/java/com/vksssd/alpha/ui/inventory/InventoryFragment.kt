@@ -34,6 +34,7 @@ class InventoryFragment : Fragment() {
     private val categoryViewModel: CategoryViewModel by viewModels()
     private val productViewModel: ProductViewModel by viewModels()
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,7 +50,6 @@ class InventoryFragment : Fragment() {
         binding.inventoryTitlebar.backButton.setOnClickListener {
             requireActivity().onBackPressed()
         }
-        // Hide search and add buttons as needed...
         binding.inventorySearchbar.searchBar.visibility = View.GONE
         binding.addProduct.visibility = View.GONE
         binding.addCategory.visibility = View.GONE
@@ -62,7 +62,6 @@ class InventoryFragment : Fragment() {
 
         // Set the category item click callback
         categoryAdapter.onItemClick = { category ->
-            // Call getProductByCategoryId in your ProductViewModel with the selected category's id.
             productViewModel.getProductByCategoryId(category.id)
         }
     }

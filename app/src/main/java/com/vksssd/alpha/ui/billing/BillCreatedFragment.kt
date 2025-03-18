@@ -11,11 +11,13 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.vksssd.alpha.R
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.vksssd.alpha.data.entity.Bill
 import com.vksssd.alpha.data.entity.BillStatus
 import com.vksssd.alpha.data.entity.BillType
+import com.vksssd.alpha.data.entity.SelectedItem
 import com.vksssd.alpha.databinding.FragmentBillCreatedBinding
+import com.vksssd.alpha.ui.inventory.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Date
 
@@ -26,6 +28,9 @@ class BillCreatedFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: BillCreatedViewModel by viewModels()
+
+    private lateinit var productAdapter: ProductAdapter
+
 
     private lateinit var navController: NavController
 
@@ -49,6 +54,8 @@ class BillCreatedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        productAdapter = ProductAdapter()
+
         if (savedInstanceState != null) {
             val amountText = savedInstanceState.getString("amount_text")
             binding.totalAmountValueTv.text = amountText
@@ -56,16 +63,57 @@ class BillCreatedFragment : Fragment() {
             binding.totalAdjustAmountEt.setText( adjustedAmountText)
         }
 
-
         binding.chckoutTitlebar.toolbarTitle.text = "Billing"
         binding.chckoutTitlebar.searchButton.visibility = View.INVISIBLE
         binding.chckoutTitlebar.backButton.visibility = View.VISIBLE
         binding.orderConfirmationCardCl.visibility=View.GONE
         binding.continuePaymentTv.visibility = View.VISIBLE
+        binding.chckoutTitlebar.backButton.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+        binding.backToHomeTv.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+        binding.backBillCreatedTv.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
+
+        val selectedProducts: Array<SelectedItem>? =
+            arguments?.getParcelableArray("selectedProducts") as? Array<SelectedItem>
+
+        if (selectedProducts != null) {
+            // Calculate the total price efficiently.
+            val total = selectedProducts.sumOf { it.product.price * it.quantity }
+            // Update visibility of views.
+            binding.cartItemsRv.visibility = View.VISIBLE
+            binding.totalItemsTv.visibility = View.VISIBLE
+            binding.totalProductCountTv.visibility = View.VISIBLE
+            binding.totalCategoryTv.visibility = View.VISIBLE
+            binding.totalItemCountTv.visibility = View.VISIBLE
+            binding.totalCategoryValueTv.visibility = View.VISIBLE
+            binding.totalAmountValueTv.visibility = View.VISIBLE
+            binding.totalAdjustAmountEt.visibility = View.VISIBLE
+            binding.continuePaymentTv.visibility = View.VISIBLE
+
+
+            val uniqueCategories = selectedProducts.map { it.product.categoryId }.distinct()
+            // Set text values for each view
+            binding.totalItemCountTv.text = selectedProducts.sumOf {it.quantity}.toString()
+            binding.totalProductCountTv.text = selectedProducts.size.toString()
+            binding.totalCategoryValueTv.text = uniqueCategories.size.toString()
+            binding.totalAmountValueTv.text = total.toString()
+            binding.totalAdjustAmountEt.setText(total.toString())
+
+            productAdapter.submitList(selectedProducts.map { it.product })
+        } else {
+            println("selectedProducts is null")
+        }
+
+
         setupFragmentResultListeners()
-
-
         setupClickListeners()
+        setupRecyclerView()
         observeViewModel()
     }
 
@@ -81,16 +129,13 @@ class BillCreatedFragment : Fragment() {
             binding.totalCategoryTv.visibility = View.INVISIBLE
             binding.totalItemCountTv.visibility = View.INVISIBLE
             binding.totalCategoryValueTv.visibility = View.INVISIBLE
-            binding.cartItems.visibility = View.INVISIBLE
+            binding.cartItemsRv.visibility = View.INVISIBLE
         }
     }
 
 
     private fun setupClickListeners() {
         binding.apply {
-            backBillCreatedTv.setOnClickListener {
-                navController.navigate(R.id.action_billCreatedFragment_to_cashinFragment)
-            }
 
             continuePaymentTv.setOnClickListener {
                 if (orderConfirmationCardCl.isVisible) {
@@ -98,10 +143,10 @@ class BillCreatedFragment : Fragment() {
                 } else {
                     orderConfirmationCardCl.visibility = View.VISIBLE
                     continuePaymentTv.visibility = View.INVISIBLE
-                    cartItems.isClickable = false
-                    cartItems.isFocusable = false
-                    cartItems.isFocusableInTouchMode = false
-                    cartItems.isEnabled = false
+                    cartItemsRv.isClickable = false
+                    cartItemsRv.isFocusable = false
+                    cartItemsRv.isFocusableInTouchMode = false
+                    cartItemsRv.isEnabled = false
 
                     // Get the amount from the TextView
                     val amountText = totalAmountValueTv.text.toString()
@@ -127,15 +172,16 @@ class BillCreatedFragment : Fragment() {
             }
 
 
-            backToHomeTv.setOnClickListener{
-                navController.navigate(R.id.action_billCreatedFragment_to_homeFragment)
-            }
-
         }
     }
 
     private fun setupRecyclerView() {
-        // Set up RecyclerView
+        productAdapter = ProductAdapter()
+        binding.cartItemsRv.apply {
+            adapter = productAdapter
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
     private fun observeViewModel() {

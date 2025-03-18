@@ -16,7 +16,7 @@ import com.vksssd.alpha.data.entity.*
         UserProfile::class,
         Notification::class
     ],
-    version = 2,
+    version = 5,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

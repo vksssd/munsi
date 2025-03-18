@@ -139,6 +139,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/product_description_tv" />
 
+    <TextView
+        android:id="@+id/product_category_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Category"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:paddingHorizontal="15sp"
+        android:layout_marginTop="18sp"
+        app:layout_constraintTop_toBottomOf="@id/product_description_value_tv"
+        app:layout_constraintStart_toStartOf="@id/product_description_value_tv"
+        app:layout_constraintEnd_toEndOf="@id/product_description_value_tv"/>
+
+    <Spinner
+        android:id="@+id/product_category_value_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/rounded_corner"
+        android:padding="10dp"
+        android:paddingHorizontal="15dp"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/product_category_tv" />
+
+
 
     <GridLayout
         android:id="@+id/btns_card_grid"
@@ -149,7 +176,7 @@
         android:columnCount="2"
         android:rowCount="1"
         app:flow_horizontalGap="5dp"
-        app:layout_constraintTop_toBottomOf="@id/product_description_value_tv">
+        app:layout_constraintTop_toBottomOf="@id/product_category_value_spinner">
 
         <include
             android:id="@+id/reset_btn_tv"

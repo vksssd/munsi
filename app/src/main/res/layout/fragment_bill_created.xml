@@ -35,33 +35,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <ScrollView
-        android:id="@+id/cart_items"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cart_items_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chckout_titlebar">
+        app:layout_constraintTop_toBottomOf="@id/chckout_titlebar"
+        android:clipToPadding="false"
+        android:visibility="gone"
+        android:scrollbars="none"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_catalog" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-            <include layout="@layout/item_catalog" />
-            <include layout="@layout/item_catalog" />
-            <include layout="@layout/item_catalog" />
-            <include layout="@layout/item_catalog" />
-            <include layout="@layout/item_catalog" />
-            <include layout="@layout/item_catalog" />
-            <include layout="@layout/item_catalog" />
-
-        </LinearLayout>
-    </ScrollView>
-
-<androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/order_summary_cl"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
@@ -89,7 +75,7 @@
         android:id="@+id/total_items_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total items"
+        android:text="Total Products"
         android:layout_marginVertical="15dp"
         android:textSize="14sp"
         android:textColor="@color/icon_color"
@@ -107,14 +93,36 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/total_category_tv"
+        android:id="@+id/total_product_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total item Types"
+        android:text="Total Product Types"
         android:layout_marginVertical="15dp"
         android:textSize="14sp"
         android:textColor="@color/icon_color"
         app:layout_constraintTop_toBottomOf="@id/total_items_tv"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/total_product_count_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="23"
+        android:layout_marginVertical="15dp"
+        android:textSize="14sp"
+        android:textColor="@color/icon_color"
+        app:layout_constraintTop_toBottomOf="@id/total_items_tv"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/total_category_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total item categories"
+        android:layout_marginVertical="15dp"
+        android:textSize="14sp"
+        android:textColor="@color/icon_color"
+        app:layout_constraintTop_toBottomOf="@id/total_product_tv"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
@@ -125,7 +133,7 @@
         android:layout_marginVertical="15dp"
         android:textSize="14sp"
         android:textColor="@color/icon_color"
-        app:layout_constraintTop_toBottomOf="@id/total_item_count_tv"
+        app:layout_constraintTop_toBottomOf="@id/total_product_tv"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 

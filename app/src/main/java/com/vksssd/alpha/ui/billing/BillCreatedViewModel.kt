@@ -7,6 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.vksssd.alpha.data.entity.Bill
 import com.vksssd.alpha.data.entity.Transaction
+import com.vksssd.alpha.data.entity.TransactionType
 import com.vksssd.alpha.data.repository.CashBillRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -32,6 +33,7 @@ class BillCreatedViewModel @Inject constructor(
             cashBillRepo.addTransaction(transaction = Transaction(
                 amount = bill.billAmount,
                 status = "paid",
+                type = TransactionType.BILL_PAYMENT,
                 timestamp = bill.billDate
             )
             )
